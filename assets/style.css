@@ -1,6 +1,7 @@
 #mon_canvas {
-  width: 800px;
+  width: 900px;
   height: 600px;
   border: 3px solid black;
   margin: 40px;
+  background-image: url("fon.jpg");
 }
