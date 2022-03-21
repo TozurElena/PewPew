@@ -2,15 +2,20 @@ let canvas = document.getElementById('mon_canvas');
 let ctx = canvas.getContext("2d");
 
 let x = canvas.width/2;
-let y = canvas.height-30;
+let y = canvas.height-10;
 let dx = 2;
 let dy = -2;
 let ballRadius = 10;
-let paddleHeight = 10;
-let paddleWidth = 75;
+let xBall = 0;
+let yBall = 0;
+
+let paddleHeight = 40;
+let paddleWidth = 40;
 let paddleX = (canvas.width-paddleWidth)/2;
+let paddleY = canvas.height-paddleHeight;
 let rightPressed = false;
 let leftPressed = false;
+let spacePressed = false;
 let brickRowCount = 5;
 let brickColumnCount = 9;
 let brickWidth = 75;
@@ -29,15 +34,17 @@ let score = 0;
 let lives = 3;
 
 document.addEventListener("keydown", keyDownHandler, false);
+document.addEventListener("keydown", keyDownBall, false);
 document.addEventListener("keyup", keyUpHandler, false);
-document.addEventListener("mousemove", mouseMoveHandler, false);
+// document.addEventListener("mousemove", mouseMoveHandler, false);
 
-function mouseMoveHandler(e) {
-    let relativeX = e.clientX - canvas.offsetLeft;
-    if(relativeX > 0 && relativeX < canvas.width) {
-        paddleX = relativeX - paddleWidth/2;
-    }
-}
+// function mouseMoveHandler(e) {
+//     let relativeX = e.clientX - canvas.offsetLeft;
+//     // console.log(relativeX);
+//     if(relativeX > 0 && relativeX < canvas.width) {
+//         paddleX = relativeX - paddleWidth/2;
+//     }
+// }
 
 function keyDownHandler(e) {
     if(e.keyCode == 39) {
@@ -46,6 +53,19 @@ function keyDownHandler(e) {
     else if(e.keyCode == 37) {
         leftPressed = true;
     }
+        
+}
+
+function keyDownBall(e) {
+    if(e.keyCode == 32) {
+        // spacePressed = true;
+        xBall = e.clientX;
+        // let y = e.clientY - canvas.offsetHeight;
+        console.log(xBall);
+        // console.log(y);
+        // drawBall();
+    }
+  
 }
 
 function keyUpHandler(e) {
@@ -54,6 +74,9 @@ function keyUpHandler(e) {
     }
     else if(e.keyCode == 37) {
         leftPressed = false;
+    }
+    else if(e.keyCode == 32) {
+        spacePressed = true;
     }
 }
 
@@ -97,9 +120,29 @@ function drawBall() {
     ctx.fill();
     ctx.closePath();
 }
+// function drawBallSpace() {
+//     ctx.beginPath();
+//     ctx.arc(x, y, ballRadius, 0, Math.PI*2);
+//     ctx.fillStyle = "#0095DD";
+//     ctx.fill();
+//     ctx.closePath();
+// }
 function drawPaddle() {
     ctx.beginPath();
-    ctx.rect(paddleX, canvas.height-paddleHeight, paddleWidth, paddleHeight);
+    // ctx.rect(paddleX, canvas.height-paddleHeight, paddleWidth, paddleHeight);
+    ctx.arc(paddleX, canvas.height-paddleHeight, 5, 0, Math.PI * 2);
+    ctx.fillStyle = "#0095DD";
+    ctx.fill();
+    ctx.closePath();
+    ctx.beginPath();
+    // ctx.rect(paddleX, canvas.height-paddleHeight, paddleWidth, paddleHeight);
+    ctx.moveTo(paddleX - 20, paddleY - 3);
+    ctx.lineTo(paddleX - 10, paddleY - 43);
+    ctx.lineTo(paddleX + 10, paddleY - 43);
+    ctx.lineTo(paddleX + 20, paddleY - 3);
+    ctx.strokeStyle = 'orange';
+    ctx.lineJoin = 'bevel';
+    ctx.stroke();
     ctx.fillStyle = "#0095DD";
     ctx.fill();
     ctx.closePath();
@@ -146,7 +189,7 @@ function draw() {
             }
             else {
               x = canvas.width/2;
-              y = canvas.height - 30;
+              y = canvas.height - 10;
               dx = 2;
               dy = -2;
               paddleX = (canvas.width - paddleWidth) / 2;
