@@ -96,16 +96,7 @@ class Target {
 
 //animation du jeu
 let animation;
-function drawScore() {
-    ctx.font = "16px Arial";
-    ctx.fillStyle = "#0095DD";
-    ctx.fillText("Score: "+score, 8, 20);
-}
-function drawLives() {
-    ctx.font = "16px Arial";
-    ctx.fillStyle = "#0095DD";
-    ctx.fillText("Lives: "+lives, canvas.width-65, 20);
-}
+
 
 function animate() {
   animation = requestAnimationFrame(animate);
@@ -132,7 +123,7 @@ function animate() {
 
     if (dist - cible.radius < 1) {
       lifeCompt = lifeCompt - 1;
-      document.getElementById("lifeCompteur").innerHTML = lifeCompt;
+      document.getElementById("lifeCompteur").innerHTML =  lifeCompt;
       
       setTimeout(() => {
         cibles.splice(index, 1);
@@ -150,10 +141,13 @@ function animate() {
       const dist = Math.hypot(projectile.x - cible.x, projectile.y - cible.y);
 
       if (dist - cible.radius - projectile.radius < 1) {
+        score = score + 1;
+        document.getElementById('scoreGame').innerHTML = score;
         setTimeout(() => {
           cibles.splice(index, 1);
           projectiles.splice(projectileIndex, 1);
         }, 0);
+        
       }
     });
   });
