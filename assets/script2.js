@@ -2,6 +2,8 @@ const targetColor = "red";
 const paddleColor = "blue";//pushka
 const projectileColor = "rgb(0, 255, 213)";
 
+const btnRestart = document.querySelector('.restart');
+
 const canvas = document.getElementById("mon_canvas");
 const ctx = canvas.getContext("2d");
 const paddleSize = 40;
@@ -185,6 +187,7 @@ addEventListener("keydown", (e) => {
   }
 });
 
+btnRestart.addEventListener('click', () =>  location.reload());
 
 animate();
 spawnCibles();
