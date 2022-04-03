@@ -5,7 +5,7 @@
 - A shape  representing a cannon
 - A shape  representing a projectile
 - A shape representing a target
--
+
 ## Specifications
 - The cannon can move horizontally at the bottom of our canvas.
 - The projectile appears according to the position of the cannon.
